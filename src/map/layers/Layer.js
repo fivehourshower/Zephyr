@@ -3,16 +3,17 @@
 // a map layer. A map layer of course can be a vector
 // (point, line, polygon) or a raster. A layer can also
 // have a grouping type - useful for the layer menu.
-
-import L from 'leaflet';
-import Backbone from 'backbone';
+import {Model} from 'backbone';
 import _ from 'underscore';
 
-export default class Layer extends Backbone.Model {
+export default class Layer extends Model {
 	constructor() {
 		super();
-		let LLayer = this.getLayer;
-		this.layer = _.isFunction(LLayer) ? new LLayer(this.data) : LLayer;
+		let LLayer = this.Layer;
+		this.layer = _.isFunction(LLayer) ?
+						new LLayer(this.data, this.options) :
+						LLayer;
+		this.layer.model = this;
 		this.on('change', this.update);
 	}
 
@@ -22,5 +23,13 @@ export default class Layer extends Backbone.Model {
 
 	get data() {
 		console.warn('get data not implemented');
+	}
+
+	get options() {
+
+	}
+
+	destroy() {
+		this.layer = this.layer.model = null;
 	}
 }

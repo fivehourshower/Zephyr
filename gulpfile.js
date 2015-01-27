@@ -33,7 +33,9 @@ gulp.task('styles', function() {
 });
 
 var bundler = _.memoize(function() {
-  return watchify(browserify('./src/main.js', _.extend({ debug: true }, watchify.args)));
+  return watchify(browserify('./src/main.js', _.extend({
+    debug: true
+  }, watchify.args)));
 });
 
 function bundle() {
