@@ -1,9 +1,19 @@
-"use strict";
+'use strict';
 
-global.$ = global.jQuery = require("backbone").$ = require("jquery");
+import Intercept from 'backbone.intercept';
+import jQuery from 'jquery';
+
+
+global.$ = global.jQuery = require('backbone').$ = jQuery;
 // For ros-backbone + internal
-global.Promise = require("native-promise-only");
+global.Promise = require('native-promise-only');
 
-require("./leaflet-setup");
-require("./service-worker");
-require("./Handlebar-mixins");
+require('./leaflet-setup');
+require('./service-worker');
+require('./Handlebar-mixins');
+
+jQuery.ready(() => {
+    Intercept.start({
+      links: false
+    });
+});

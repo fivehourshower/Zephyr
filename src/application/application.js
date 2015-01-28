@@ -1,11 +1,9 @@
 import $ from 'jquery';
-import _ from 'lodash';
+import _ from 'underscore';
 import Radio from 'backbone.radio';
 import nprogress from 'nprogress';
 import {Application} from 'backbone.marionette';
 import LayoutView from './layout-view';
-
-let routerChannel = Radio.channel('router');
 
 nprogress.configure({
   showSpinner: false
@@ -17,11 +15,13 @@ export default Application.extend({
     this.layout = new LayoutView();
     this.layout.render();
 
-    this.listenTo(routerChannel, {
+    this.listenTo(Radio.channel('router'), {
       'before:enter:route' : this.onBeforeEnterRoute,
       'enter:route'        : this.onEnterRoute,
       'error:route'        : this.onErrorRoute
     });
+
+    Radio.channel('content').comply('default', this.showContent, this);
   },
 
   onBeforeEnterRoute() {
@@ -43,5 +43,9 @@ export default Application.extend({
   onErrorRoute() {
     this.transitioning = false;
     nprogress.done(true);
+  },
+
+  showContent(type, view) {
+    this.layout[type].show(view);
   }
 });

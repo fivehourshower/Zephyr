@@ -1,4 +1,4 @@
-var Handlebars = require("hbsfy/runtime");
+var Handlebars = require('hbsfy/runtime');
 // var mixins = require("handlebars-helpers/lib/helpers/helpers-comparisons");
 // var HandlebarsIntl = require('handlebars-intl');
 

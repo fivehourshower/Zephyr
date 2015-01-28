@@ -13,7 +13,7 @@ export default class AppLayout extends LayoutView {
   regions() {
     return {
       header  : '.application__header',
-      flashes : '.application__flashes',
+      prompt : '.application__prompts',
       content : '.application__content',
       overlay : '.application__overlay'
     };
