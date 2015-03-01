@@ -15,7 +15,7 @@ var dl = new Download().dest("./temp");
 _.each(tables, table => {
 	var url = `http://maps-cartes.ec.gc.ca/CESI_Services/DataService/${table}/en`;
 	console.log('Downloading', url);
-	dl.get(url, `temp/${table}/cesi.xls`);
+	dl.get(url, `temp/${table}`);
 });
 
 dl.run((err, files) => {
