@@ -5,7 +5,7 @@
   "description": "geocoding offline",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node cesi-sync && gulp",
+    "start": "gulp",
     "postinstall": "bower cache clean && bower install"
   },
   "repository": {
@@ -78,6 +78,7 @@
     "backbone.syphon": "^0.5.0",
     "bootstrap": "^3.3.1",
     "bootstrap-validator": "^0.6.0",
+    "esri-leaflet": "^1.0.0-rc.5",
     "geopouch": "^2.0.0",
     "handlebars": "^2.0.0",
     "jquery": "^2.1.3",
