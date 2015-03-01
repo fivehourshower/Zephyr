@@ -6,7 +6,7 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var stylish = require('jshint-stylish');
 var buffer = require('vinyl-buffer');
-var _ = require('underscore');
+var _ = require('lodash');
 
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
@@ -33,9 +33,7 @@ gulp.task('styles', function() {
 });
 
 var bundler = _.memoize(function() {
-  return watchify(browserify('./src/main.js', _.extend({
-    debug: true
-  }, watchify.args)));
+  return watchify(browserify('./src/main.js', _.extend({ debug: true }, watchify.args)));
 });
 
 function bundle() {
@@ -61,6 +59,18 @@ gulp.task('jshint', function() {
     .pipe($.jshint.reporter(stylish));
 });
 
+var reporter = 'spec';
+
+gulp.task('mocha', ['jshint'], function() {
+  return gulp.src([
+    './test/setup/node.js',
+    './test/setup/helpers.js',
+    './test/unit/**/*.js'
+  ], { read: false })
+    .pipe($.plumber())
+    .pipe($.mocha({ reporter: reporter }));
+});
+
 gulp.task('build', [
   'clean',
   'html',
@@ -70,7 +80,8 @@ gulp.task('build', [
 ]);
 
 gulp.task('test', [
-  'jshint'
+  'jshint',
+  'mocha'
 ]);
 
 gulp.task('watch', ['build'], function() {
@@ -80,6 +91,7 @@ gulp.task('watch', ['build'], function() {
     }
   });
 
+  reporter = 'dot';
   bundler().on('update', function() {
     gulp.start('scripts');
     gulp.start('test');
