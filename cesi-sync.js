@@ -1,7 +1,10 @@
-var _ = require('lodash');
-var Download = require('download');
+const path = require('path');
+const request = require('request');
+const csv = require('csv-parser');
+var fs = require('fs');
+var stringify = require('stringify-stream');
 
-var tables = [
+const tables = [
 	1,  // GHG
 	5,  // NOx
 	6,  // SOx
@@ -10,14 +13,11 @@ var tables = [
 	11, // Hg
 ];
 
-var dl = new Download().dest("./temp");
-
-_.each(tables, table => {
-	var url = `http://maps-cartes.ec.gc.ca/CESI_Services/DataService/${table}/en`;
+tables.forEach(table => {
+	let url = `http://maps-cartes.ec.gc.ca/CESI_Services/DataService/${table}/en`;
 	console.log('Downloading', url);
-	dl.get(url, `temp/${table}`);
-});
-
-dl.run((err, files) => {
-	console.log(files);
+	return request(url)
+	  .pipe(csv({separator: '\t'}))
+	  .pipe(stringify())
+	  .pipe(fs.createWriteStream(`./temp/${table}.json`));
 });
