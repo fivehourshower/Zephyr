@@ -1,12 +1,18 @@
 @import "node_modules/bootstrap/less/bootstrap";
 
 @import "application/styles";
+@import "map/styles";
 @import "login/login";
 
 html,
 body,
 .application {
-  position: relative;
   height: 100%;
   width: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-flow: column wrap;
 }
