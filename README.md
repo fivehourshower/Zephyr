@@ -4,6 +4,11 @@ Zephyr
 After installing the dependencies via NPM start the server by running
 
 ```sh
+# Install the deps
+$ npm install
+# Update CESI resources
+$ npm run sync
+# Start the server
 $ npm run start
 ```
 

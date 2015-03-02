@@ -24,4 +24,4 @@ export default class Route extends Model {
     get zoom() {
         return zoom;
     }
-};
+}

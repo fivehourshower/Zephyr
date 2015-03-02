@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp",
+    "sync": "babel-node cesi-sync",
     "postinstall": "bower cache clean && bower install"
   },
   "repository": {
@@ -56,6 +57,7 @@
     "jsdom": "^2.0.0",
     "jshint-stylish": "^1.0.0",
     "minimatch": "^2.0.1",
+    "mkdirp": "^0.5.0",
     "mocha": "^2.1.0",
     "morgan": "^1.5.1",
     "proxyquire": "^1.3.0",
@@ -64,14 +66,13 @@
     "selenium-webdriver": "^2.44.0",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.6.0",
-    "stringify-stream": "^1.0.0",
+    "stringify-array-transform": "^1.0.4",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.2.1"
   },
   "dependencies": {
     "backbone": "^1.1.2",
-    "backbone-query-parameters": "git://github.com/jhudson8/backbone-query-parameters",
     "backbone.intercept": "^0.3.2",
     "backbone.marionette": "^2.3.1",
     "backbone.radio": "^0.6.0",
@@ -80,7 +81,6 @@
     "bootstrap-validator": "^0.6.0",
     "d3": "^3.5.5",
     "esri-leaflet": "^1.0.0-rc.5",
-    "geopouch": "^2.0.0",
     "handlebars": "^2.0.0",
     "leaflet": "^0.7.3",
     "leaflet-hash": "^0.2.1",
@@ -89,8 +89,6 @@
     "lodash": "^3.3.1",
     "native-promise-only": "^0.7.6-a",
     "nprogress": "^0.1.6",
-    "pouchdb": "^3.2.1",
-    "pouchdb-authentication": "^0.3.6",
     "underscore": "^1.7.0"
   },
   "browser": {

@@ -53,7 +53,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('jshint', function() {
-  return gulp.src(['./src/**/*.js', './test/**/*.js'])
+  return gulp.src(['./src/**/*.js', '!./src/depends/**/*', './test/**/*.js'])
     .pipe($.plumber())
     .pipe($.jshint())
     .pipe($.jshint.reporter(stylish));

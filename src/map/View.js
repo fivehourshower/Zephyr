@@ -14,7 +14,7 @@ export default Marionette.ItemView.extend({
     template: false,
     id: 'map',
     modelEvents: {
-        "update": "updateView"
+        'update': 'updateView'
     },
 
     onShow() {
@@ -26,7 +26,7 @@ export default Marionette.ItemView.extend({
         this.baseLayers = _.map(layers.baseLayers, (layer, index) => {
             return {
                 // Put a space between words
-                name: _.words(layer).join(" "),
+                name: _.words(layer).join(' '),
                 // Make a feature layer
                 layer: esri.basemapLayer(layer),
                 // Mark the first one active
