@@ -1,5 +1,12 @@
-@import "node_modules/bootstrap/less/bootstrap";
+@BOWER: "../depends";
+@NPM: "node_modules";
 
+// Dependencies
+
+// Setup bootstrap and theme it
+@import "@{NPM}/bootstrap/less/bootstrap.less";
+
+// Import the other component styles
 @import "application/styles";
 @import "map/styles";
 @import "login/login";
