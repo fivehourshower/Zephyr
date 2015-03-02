@@ -5,14 +5,18 @@ import Marionette from 'backbone.marionette';
 var View = Marionette.ItemView.extend({
 	template: false,
 	id: 'map',
+	modelEvents: {
+    	"update": "updateView"
+  	},
 
 	onShow() {
-		console.log("show me dammit");
-		this.map = L.map(this.el).setView([37.75, -122.23], 10);
-		esri.basemapLayer('Streets').addTo(this.map);
-		navigator.geolocation.getCurrentPosition(pose => {
-			this.map.setView([pose.coords.latitude, pose.coords.longitude], 10);
-		});
+		this.map = L.map(this.el);
+		this.baseLayer = esri.basemapLayer('Streets').addTo(this.map);
+		this.updateView();
+	},
+
+	updateView() {
+		if (this.map) this.map.setView(this.model.location, this.model.zoom);
 	}
 });
 

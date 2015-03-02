@@ -1,8 +1,10 @@
-var View = require('./View');
-var Radio = require('backbone.radio');
+import View from './View';
+import Model from './Route';
+
+import Radio from 'backbone.radio';
 
 let channel = Radio.channel('map');
 
 channel.comply('show', () => {
-	Radio.channel('content').command('content', new View());
+	Radio.channel('content').command('content', new View({model: new Model()}));
 });
