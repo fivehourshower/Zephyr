@@ -14,7 +14,7 @@ let app = new Application();
 Promise.all([ready.promise()]).then(() => app.start());
 
 app.on('start', () => {
-	Radio.channel('map').command('show');
+    Radio.channel('map').command('show');
 
     Backbone.history.start();
 });

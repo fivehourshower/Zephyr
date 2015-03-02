@@ -7,29 +7,29 @@ import {Model} from 'backbone';
 import _ from 'underscore';
 
 export default class Layer extends Model {
-	constructor() {
-		super();
-		let LLayer = this.Layer;
-		this.layer = _.isFunction(LLayer) ?
-						new LLayer(this.data, this.options) :
-						LLayer;
-		this.layer.model = this;
-		this.on('change', this.update);
-	}
+    constructor() {
+        super();
+        let LLayer = this.Layer;
+        this.layer = _.isFunction(LLayer) ?
+                        new LLayer(this.data, this.options) :
+                        LLayer;
+        this.layer.model = this;
+        this.on('change', this.update);
+    }
 
-	update(model, update) {
-		console.warn('update not implemented');
-	}
+    update(model, update) {
+        console.warn('update not implemented');
+    }
 
-	get data() {
-		console.warn('get data not implemented');
-	}
+    get data() {
+        console.warn('get data not implemented');
+    }
 
-	get options() {
+    get options() {
 
-	}
+    }
 
-	destroy() {
-		this.layer = this.layer.model = null;
-	}
+    destroy() {
+        this.layer = this.layer.model = null;
+    }
 }

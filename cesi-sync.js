@@ -5,19 +5,19 @@ var fs = require('fs');
 var stringify = require('stringify-stream');
 
 const tables = [
-	1,  // GHG
-	5,  // NOx
-	6,  // SOx
-	7,  // VOC
-	9,  // NH3
-	11, // Hg
+    1,  // GHG
+    5,  // NOx
+    6,  // SOx
+    7,  // VOC
+    9,  // NH3
+    11, // Hg
 ];
 
 tables.forEach(table => {
-	let url = `http://maps-cartes.ec.gc.ca/CESI_Services/DataService/${table}/en`;
-	console.log('Downloading', url);
-	return request(url)
-	  .pipe(csv({separator: '\t'}))
-	  .pipe(stringify())
-	  .pipe(fs.createWriteStream(`./temp/${table}.json`));
+    let url = `http://maps-cartes.ec.gc.ca/CESI_Services/DataService/${table}/en`;
+    console.log('Downloading', url);
+    return request(url)
+      .pipe(csv({separator: '\t'}))
+      .pipe(stringify())
+      .pipe(fs.createWriteStream(`./temp/${table}.json`));
 });
