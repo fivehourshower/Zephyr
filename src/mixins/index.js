@@ -5,7 +5,6 @@ import jQuery from 'jquery';
 
 
 global.$ = global.jQuery = require('backbone').$ = jQuery;
-// For ros-backbone + internal
 global.Promise = require('native-promise-only');
 
 require('./leaflet-setup');

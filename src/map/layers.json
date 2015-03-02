@@ -1,0 +1,6 @@
+{
+    "baseLayers": ["Streets", "Topographic", "NationalGeographic", "Oceans", "ImageryLabels"],
+    "stationLayers": [
+
+    ]
+}
