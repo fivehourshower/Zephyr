@@ -7,6 +7,7 @@ var source = require('vinyl-source-stream');
 var stylish = require('jshint-stylish');
 var buffer = require('vinyl-buffer');
 var _ = require('lodash');
+var exec = require('child_process').exec;
 
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
@@ -98,6 +99,11 @@ gulp.task('watch', ['build'], function() {
   });
   gulp.watch('./test/**/*.js', ['test']);
   gulp.watch(['./src/main.less', './src/**/*.less'], ['styles']);
+  gulp.watch(['./src/**/*.html'], ['html']);
+
+  // Resync resources once an hour
+  console.log('\n\n\tPrepared resync once every hour.\n\n');
+  setInterval(_.partial(exec, 'npm run sync'), 3.6e6);
 });
 
 gulp.task('default', ['watch']);
