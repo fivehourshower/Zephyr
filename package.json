@@ -6,8 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp",
-    "sync": "babel-node cesi-sync",
-    "postinstall": "bower cache clean && bower install"
+    "sync": "babel-node sync/cesi && ./sync/weather",
+    "postinstall": "bower install --allow-root"
   },
   "repository": {
     "type": "git",
