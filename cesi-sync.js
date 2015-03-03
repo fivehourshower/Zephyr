@@ -1,10 +1,11 @@
-const path = require('path');
-const request = require('request');
-const csv = require('csv-parser');
-var fs = require('fs');
-var mkdirp = require('mkdirp');
-
-var stringify = require('stringify-array-transform');
+import path from 'path';
+import request from 'request';
+import csv from 'csv-parser';
+import fs from 'fs';
+import mkdirp from 'mkdirp';
+import _ from 'lodash';
+import through from 'through2';
+import toArray from 'stream-to-array';
 
 const tables = [
     1,  // GHG
@@ -20,8 +21,27 @@ mkdirp.sync('temp');
 tables.forEach(table => {
     let url = `http://maps-cartes.ec.gc.ca/CESI_Services/DataService/${table}/en`;
     console.log('Downloading', url);
-    return request(url)
+    let stream = request(url)
       .pipe(csv({separator: '\t'}))
-      .pipe(new stringify())
-      .pipe(fs.createWriteStream(`./temp/${table}.json`));
+      .pipe(through.obj(function(row, enc, cb) {
+        this.push({
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [+row.Longitude, +row.Latitude]
+            },
+            properties: _.omit(row, 'Latitude', 'Longitude')
+        });
+        cb();
+      }))
+
+    // Pipe the stream to an array, format as geojson (wgs84) and pipe to fie
+    toArray(stream, (err, arr) => {
+        let json = JSON.stringify({
+           'type': 'FeatureCollection',
+           'features': arr
+        }, null, 2);
+        let file = `./temp/${table}.json`;
+        fs.writeFile(file, json, () => console.log('writing', file));
+    });
 });

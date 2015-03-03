@@ -66,7 +66,8 @@
     "selenium-webdriver": "^2.44.0",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.6.0",
-    "stringify-array-transform": "^1.0.4",
+    "stream-to-array": "^2.0.2",
+    "through2": "^0.6.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.2.1"
