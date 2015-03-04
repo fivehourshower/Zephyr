@@ -7,6 +7,7 @@ require('leaflet-panel-layers/dist/leaflet-panel-layers.src');
 require('../depends/Leaflet.D3SvgOverlay/L.D3SvgOverlay');
 
 import esri from 'esri-leaflet';
+import popupTemplate from './popup.hbs';
 
 let layers = require('./layers.json');
 
@@ -34,17 +35,24 @@ export default Marionette.ItemView.extend({
             };
         });
 
-        this.stationLayers = _.map(layers.stationLayers, (layer, index) => {
+        this.stationLayers = _.map(layers.stationLayers, (config, index) => {
+            let layer = esri.featureLayer(config.url, {
+                useCors: true
+            });
+
+            layer.bindPopup(function (feature) {
+              return popupTemplate(feature.properties);
+            });
+
             return {
                 group: 'station',
-                name: layer.name,
-                layer: L.esri.featureLayer(layer.url, {
-                    useCors: true
-                }),
+                name: config.name,
+                layer: layer,
                 active: !index
             };
         });
 
+        //Make menuControl responsible for adding the layers to the map
         this.menuControl = new L.Control.PanelLayers(this.baseLayers, this.stationLayers);
         this.map.addControl( this.menuControl );
     },
