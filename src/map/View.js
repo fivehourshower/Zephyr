@@ -35,11 +35,10 @@ export default Marionette.ItemView.extend({
         });
 
         this.stationLayers = _.map(layers.stationLayers, (layer, index) => {
-            let layerURL = `http://services5.arcgis.com/qU80cCGJEmdjMJVt/arcgis/rest/services/${layer.layer}/FeatureServer/0`;
             return {
                 group: 'station',
                 name: layer.name,
-                layer: L.esri.featureLayer(layerURL, {
+                layer: L.esri.featureLayer(layer.url, {
                     useCors: true
                 }),
                 active: !index

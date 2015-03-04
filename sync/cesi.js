@@ -1,3 +1,5 @@
+#!/bin/env node
+
 import path from 'path';
 import request from 'request';
 import csv from 'csv-parser';
@@ -33,7 +35,7 @@ tables.forEach(table => {
             properties: _.omit(row, 'Latitude', 'Longitude')
         });
         cb();
-      }))
+      }));
 
     // Pipe the stream to an array, format as geojson (wgs84) and pipe to fie
     toArray(stream, (err, arr) => {
