@@ -2,7 +2,8 @@ Zephyr
 ================
 
 # About this project
-Zephyr is a open-source project developed for the ESRI 2015 app challenge, developed by 3 University of Waterloo students. The project itself was inspired off [Cambecc's air project](https://github.com/cambecc/air)
+
+Zephyr is a open-source project developed for the ESRI's ECCE App Challenge 2015 app challenge, developed by 3 University of Waterloo students. This project was inspired by [Cambecc's air](https://github.com/cambecc/air) project.
 
 This application will plot out the sources of GHG's (green house gases), NOx (mono-nitrogen oxides), SOx (mono-sulfuric oxides), VOC (volatile organic compounds), NH3 (ammonia), and Hg (mercury) emissions throughout Canada.
 The application will then simulate the coverage/spread of these emissions within Canada using a Global Wind Model, and plot them on the map.
