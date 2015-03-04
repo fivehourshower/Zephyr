@@ -2,14 +2,13 @@ import Marionette from 'backbone.marionette';
 import _ from 'lodash';
 
 import L from 'leaflet';
+import esri from 'esri-leaflet';
 require('leaflet-hash');
 require('leaflet-panel-layers/dist/leaflet-panel-layers.src');
 require('../depends/Leaflet.D3SvgOverlay/L.D3SvgOverlay');
 
-import esri from 'esri-leaflet';
 import popupTemplate from './popup.hbs';
-
-let layers = require('./layers.json');
+import layers from './layers.json';
 
 export default Marionette.ItemView.extend({
     template: false,
@@ -36,13 +35,10 @@ export default Marionette.ItemView.extend({
         });
 
         this.stationLayers = _.map(layers.stationLayers, (config, index) => {
-            let layer = esri.featureLayer(config.url, {
-                useCors: true
-            });
+            let layer = esri.featureLayer(config.url, {});
 
-            layer.bindPopup(function (feature) {
-              return popupTemplate(feature.properties);
-            });
+            // Register the popup template
+            layer.bindPopup(feature => popupTemplate(feature.properties));
 
             return {
                 group: 'station',

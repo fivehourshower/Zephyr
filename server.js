@@ -5,7 +5,7 @@ import resync from './sync/resync';
 import logalog from './utils/logalog'
 
 let app = express();
-let port = process.env.PORT || 3001;
+let port = process.env.PORT || 3000;
 
 // Resync resources once an hour
 logalog.debug('\n\n\tPrepared resync once every hour.\n\n');

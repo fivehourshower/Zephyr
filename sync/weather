@@ -12,3 +12,5 @@ curl -o temp/gfs.grib $URL'?'$FILE'&all_var=on&'$REGION'&'$DIR
 
 # Convert it to an easier to use format (for the web)
 grib2json -d -n -o temp/gfs.json temp/gfs.grib
+
+mkdir -p ./dist

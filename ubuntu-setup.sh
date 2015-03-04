@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt-get update
-sudo apt-get -y install curl git maven java7-jdk libicu-dev build-essential
+sudo apt-get -y install curl git maven openjdk-7-jdk libicu-dev build-essential
 
 git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
 
