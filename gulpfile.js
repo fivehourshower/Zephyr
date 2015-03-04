@@ -72,9 +72,15 @@ gulp.task('mocha', ['jshint'], function() {
     .pipe($.mocha({ reporter: reporter }));
 });
 
+gulp.task('depends', function() {
+    return gulp.src(['./src/depends/**'])
+        .pipe(gulp.dest('./dist/depends'));
+});
+
 gulp.task('build', [
   'clean',
   'html',
+  'depends',
   'styles',
   'scripts',
   'test'
