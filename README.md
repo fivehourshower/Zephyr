@@ -1,7 +1,15 @@
 Zephyr
 ================
 
-After installing the dependencies via NPM start the server by running
+# Setup
+
+Install the following dependencies
+
+- Install [io.js](https://iojs.org/en/index.html) (Tested on v1.3)
+- Install the Thredds extension [`grib2json`](https://github.com/cambecc/grib2json) by **@cambecc** (requires Java and mvn) for converting the GFS data (grb) to JSON.
+- `curl` is required for fetching the [GFS data](http://nomads.ncdc.noaa.gov/data.php?name=access#hires_weather_datasets.
+
+After installing the dependencies via NPM start the server by running. T
 
 ```sh
 # Install the deps
