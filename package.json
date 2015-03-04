@@ -7,7 +7,8 @@
   "scripts": {
     "start": "gulp",
     "sync": "babel-node sync/cesi && ./sync/weather && json-minify temp/gfs.json > dist/gfs.json",
-    "postinstall": "bower install --allow-root"
+    "postinstall": "bower install --allow-root",
+    "server": "babel-node server"
   },
   "repository": {
     "type": "git",

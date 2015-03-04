@@ -39,8 +39,7 @@ export default Marionette.ItemView.extend({
                 group: 'station',
                 name: layer.name,
                 layer: L.esri.featureLayer(layer.url, {
-                    useCors: true,
-                    token: "qU80cCGJEmdjMJVt"
+                    useCors: true
                 }),
                 active: !index
             };
