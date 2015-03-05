@@ -34,7 +34,7 @@ export default Marionette.ItemView.extend({
             };
         });
 
-        this.stationLayers = _.map(layers.stationLayers, (config, index) => {
+        this.overlays = _.map(layers.stationLayers, (config, index) => {
             let layer = esri.featureLayer(config.url, {});
 
             // Register the popup template
@@ -48,13 +48,15 @@ export default Marionette.ItemView.extend({
             };
         });
 
-        //Make menuControl responsible for adding the layers to the map
-        this.menuControl = new L.Control.PanelLayers(this.baseLayers, this.stationLayers);
-        // this.map.addControl( this.menuControl );
-        this.map.on('load', () => {
-            // Load wind data and setup then setup the layer
-            $.getJSON('./gfs.json', _.bind(this.windySetup, this));
+        this.windLayer = new WindyLayer({
+            url: 'gfs.json',
+            opacity: 0.50
         });
+        this.windLayer.addTo(this.map);
+
+        //Make menuControl responsible for adding the layers to the map
+        this.menuControl = new L.Control.PanelLayers(this.baseLayers, this.overlays);
+        this.map.addControl( this.menuControl );
     },
 
     // Update the view from the model if the hash isn't set (indicating the requested pose)
@@ -62,10 +64,5 @@ export default Marionette.ItemView.extend({
         if (!location.hash) {
             this.map.setView(this.model.location, this.model.zoom);
         }
-    },
-
-    windySetup(json) {
-        this.canvasLayer = new WindyLayer(json);
-        this.canvasLayer.addTo(this.map).bringToFront();
     }
 });

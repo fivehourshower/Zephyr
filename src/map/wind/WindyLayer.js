@@ -1,28 +1,42 @@
 import _ from 'lodash';
 import L from 'leaflet';
-require('Leaflet.Canvas/leaflet_canvas_layer');
 
+import CanvasOverlay from './CanvasOverlay'
 import Windy from './windy'
+import $ from 'jquery';
 
-export default L.CanvasLayer.extend({
-    initialize(data, {opacity = 50} = {}) {
-        L.CanvasLayer.prototype.initialize.call(this);
+export default class WindyLayer extends CanvasOverlay {
+    initialize({url = ''} = {}) {
+        super.initialize(...arguments);
 
-        this.data = data;
+        // Load the GFS data
+        $.getJSON(url, data => {
+            this.data = data;
+            // Start rendering if the layers active
+            if (this.canvas()) this._reset();
+        });
+    }
+
+    onAdd() {
+        super.onAdd(...arguments);
         this.windy = new Windy({
-            canvas: this.getCanvas(),
+            canvas: this.canvas(),
             data: this.data
         });
-        this.setOpacity(opacity);
-    },
+    }
+
+    onRemove() {
+        super.onRemove(...arguments);
+        this.windy.stop();
+        this.windy = null;
+    }
 
     render() {
-        console.log('here');
-        this.windy.stop();
-        this.update();
-    },
+        // Defer for data
+        if (!this.data) return;
 
-    update: _.throttle(function() {
+        this.windy.stop();
+
         let {width, height} = this._canvas;
         let bounds = this._map.getBounds();
         let {lng: xmax, lat: ymax} = bounds.getNorthEast(),
@@ -30,5 +44,5 @@ export default L.CanvasLayer.extend({
         this.windy.start([[0, 0], [width, height]],
             width, height,
             [[xmin, ymin], [xmax, ymax]]);
-    }, 100, {leading: false})
-});
+    }
+};

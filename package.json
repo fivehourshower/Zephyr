@@ -76,7 +76,6 @@
     "winston-chill": "0.0.3"
   },
   "dependencies": {
-    "Leaflet.Canvas": "CartoDB/Leaflet.CanvasLayer#gh-pages",
     "backbone": "^1.1.2",
     "backbone.intercept": "~0.3.2",
     "backbone.marionette": "^2.3.1",
