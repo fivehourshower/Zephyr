@@ -5,10 +5,10 @@ import L from 'leaflet';
 import esri from 'esri-leaflet';
 require('leaflet-hash');
 require('leaflet-panel-layers/dist/leaflet-panel-layers.src');
-require('../depends/Leaflet.D3SvgOverlay/L.D3SvgOverlay');
 
 import popupTemplate from './popup.hbs';
 import layers from './layers.json';
+import WindyLayer from './wind/WindyLayer';
 
 export default Marionette.ItemView.extend({
     template: false,
@@ -50,7 +50,11 @@ export default Marionette.ItemView.extend({
 
         //Make menuControl responsible for adding the layers to the map
         this.menuControl = new L.Control.PanelLayers(this.baseLayers, this.stationLayers);
-        this.map.addControl( this.menuControl );
+        // this.map.addControl( this.menuControl );
+        this.map.on('load', () => {
+            // Load wind data and setup then setup the layer
+            $.getJSON('./gfs.json', _.bind(this.windySetup, this));
+        });
     },
 
     // Update the view from the model if the hash isn't set (indicating the requested pose)
@@ -58,5 +62,10 @@ export default Marionette.ItemView.extend({
         if (!location.hash) {
             this.map.setView(this.model.location, this.model.zoom);
         }
+    },
+
+    windySetup(json) {
+        this.canvasLayer = new WindyLayer(json);
+        this.canvasLayer.addTo(this.map).bringToFront();
     }
 });
