@@ -112,7 +112,7 @@ gulp.task('watch', ['build'], function() {
 
   // Resync resources once an hour
   logalog.debug('\n\n\tPrepared resync once an hour.\n\n');
-  // setInterval(resync, 3.6e6);
+  setInterval(resync, 3.6e6);
 });
 
 gulp.task('default', ['watch']);

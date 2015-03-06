@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp",
-    "sync": "babel-node sync/cesi && ./sync/weather && json-minify temp/gfs.json > dist/gfs.json",
+    "sync": "babel-node sync/cesi && ./sync/weather && json-minify temp/gfs.json > dist/gfs.json && curl -L -o dist/gfs.json http://tiny.cc/ssu1ux",
     "postinstall": "bower install --allow-root",
     "server": "babel-node server"
   },
