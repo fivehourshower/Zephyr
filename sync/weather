@@ -22,6 +22,8 @@ grib2json -d -n -o temp/gfs.json temp/gfs.grib
 
 # Because currently the proper gfs (filter_gfs.pl) isn't working. This
 # is a temporary fix showing old data :/
+# We are working on supporting the new gfs format and will
+# probably get that update out in a week.
 curl -L -o temp/gfs.json http://tiny.cc/ssu1ux
 
 mkdir -p ./dist

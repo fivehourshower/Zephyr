@@ -1,5 +1,7 @@
 #!/bin/env node
 
+// The next set of cesi updates is April 15!
+
 import request from 'request';
 import csv from 'csv-parser';
 import fs from 'fs';

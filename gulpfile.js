@@ -46,6 +46,7 @@ function bundle() {
     .on('error', $.util.log)
     .pipe(source('bundle.js'))
     .pipe(buffer())
+    // not preserving source maps?
     // .pipe($.uglify())
     .pipe($.sourcemaps.init({ loadMaps: true }))
     .pipe($.sourcemaps.write('./'))

@@ -14,12 +14,15 @@ export default class WindyLayer extends CanvasOverlay {
             this.data = data;
             // Start rendering if the layers active
             if (this.canvas()) {
-                setTimeout(this._reset.bind(this), 100);
+                this.onAdd();
             }
         });
     }
 
     onAdd() {
+        // Defer for data
+        if (!this.data) return;
+
         super.onAdd(...arguments);
         this.windy = new Windy({
             canvas: this.canvas(),
@@ -33,14 +36,10 @@ export default class WindyLayer extends CanvasOverlay {
         this.windy = null;
     }
 
-    render() {
-        // Defer for data
-        if (!this.data) return;
-
+    render({bounds, size}) {
         this.windy.stop();
 
-        let {width, height} = this._canvas;
-        let bounds = this._map.getBounds();
+        let {width, height} = size;
         let {lng: xmax, lat: ymax} = bounds.getNorthEast(),
             {lng: xmin, lat: ymin} = bounds.getSouthWest();
         this.windy.start([[0, 0], [width, height]],
