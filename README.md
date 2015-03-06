@@ -1,6 +1,9 @@
 Zephyr
 ================
 
+#Mission
+###Real-time mapping of harmful emissions transfered through the air
+
 # About this project
 
 Zephyr is a open-source project developed for the ESRI's ECCE App Challenge 2015 app challenge, developed by 3 University of Waterloo students. This project was inspired by [Cambecc's air](https://github.com/cambecc/air) project.
