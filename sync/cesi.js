@@ -1,6 +1,5 @@
 #!/bin/env node
 
-import path from 'path';
 import request from 'request';
 import csv from 'csv-parser';
 import fs from 'fs';
@@ -10,29 +9,46 @@ import through from 'through2';
 import toArray from 'stream-to-array';
 
 const tables = [
-    1,  // GHG
-    5,  // NOx
-    6,  // SOx
-    7,  // VOC
-    9,  // NH3
-    11, // Hg
+    {id:1, emission: '2012 GHG Emissions (kilotonnes of carbon dioxide equivalent)',
+     url: 'NAICS Data Link', unit: 'kilotonnes'},  // GHG
+    {id:5, emission: '2012 NOx Emissions (t)',
+     url: 'NAICS Data Link', unit: 'tons'},  // NOx
+    {id:6, emission: '2012 SOx Emissions (t)',
+     url: 'NAICS Data Link', unit: 'tons'},  // SOx
+    {id:7, emission: '2012 VOC Emissions (t)',
+     url: 'NAICS Data Link', unit: 'tons'},  // VOC
+    {id:9, emission: '2012 NH3 Emissions (t)',
+     url: 'NAICS Data Link', unit: 'tons'},  // NH3
+    {id:11, emission: '2012 Hg Emissions (kg)',
+     url: 'NAICS Data Link', unit: 'kilograms'} // Hg
 ];
 
 mkdirp.sync('temp');
 
 tables.forEach(table => {
-    let url = `http://maps-cartes.ec.gc.ca/CESI_Services/DataService/${table}/en`;
+    let url = `http://maps-cartes.ec.gc.ca/CESI_Services/DataService/${table.id}/en`;
     console.log('Downloading', url);
     let stream = request(url)
       .pipe(csv({separator: '\t'}))
       .pipe(through.obj(function(row, enc, cb) {
+        let props = {
+          facility_name: row['Facility Name'],
+          city: row.City,
+          prov: row.Province,
+          address: row.Address,
+          postal_code: row['Postal Code'],
+          url: row[table.url],
+          emission: row[table.emission],
+          year: 2012,
+          unit: table.unit
+        };
         this.push({
             'type': 'Feature',
             'geometry': {
                 'type': 'Point',
                 'coordinates': [+row.Longitude, +row.Latitude]
             },
-            properties: _.omit(row, 'Latitude', 'Longitude')
+            properties: props
         });
         cb();
       }));
@@ -43,7 +59,7 @@ tables.forEach(table => {
            'type': 'FeatureCollection',
            'features': arr
         }, null, 2);
-        let file = `./temp/${table}.json`;
+        let file = `./temp/${table.id}.json`;
         fs.writeFile(file, json, () => console.log('writing', file));
     });
 });

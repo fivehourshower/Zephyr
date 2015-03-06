@@ -38,7 +38,7 @@ export default Marionette.ItemView.extend({
             let layer = esri.featureLayer(config.url, {});
 
             // Register the popup template
-            layer.bindPopup(feature => popupTemplate(feature.properties));
+            layer.bindPopup(feature => popupTemplate({config, properties: feature.properties}));
 
             return {
                 group: 'station',
