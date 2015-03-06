@@ -17,6 +17,8 @@ Credits to Cambecc's [Earth Model](https://github.com/cambecc/earth) and ESRI's 
 |![megawac](http://i.imgur.com/Lpax8dO.jpg)|![Jaydeep](http://i.imgur.com/lwLMFfS.jpg)|![Sam](http://i.imgur.com/yKK9UOR.jpg)|
 
 **Graeme** is a developer passionate about board games and bringing GIS functions to mobile robotics.
+**Jaydeep** is an enthusiastic developer who is always willing to learn new gadgets and products!
+**Sam** is a developer who is interested in turn-based strategy games, and in developing GIS applications to solve geo-spatial problems.
 
 ## Setup
 
