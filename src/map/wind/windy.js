@@ -476,7 +476,8 @@ var Windy = function(params) {
         })();
     }
 
-    var start = function(bounds, width, height, extent) {
+    var start = function(bounds, width, height, extent, zoomScale) {
+        console.log(zoomScale);
 
         var mapBounds = {
             south: deg2rad(extent[0][1]),
