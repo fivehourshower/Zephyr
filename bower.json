@@ -14,7 +14,6 @@
     "tests"
   ],
   "dependencies": {
-    "leaflet": "~0.7.3",
-    "Leaflet.D3SvgOverlay": "megawac/Leaflet.D3SvgOverlay"
+    "leaflet": "~0.7.3"
   }
 }

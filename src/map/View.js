@@ -5,21 +5,24 @@ import L from 'leaflet';
 import esri from 'esri-leaflet';
 require('leaflet-hash');
 require('leaflet-panel-layers/dist/leaflet-panel-layers.src');
-require('../depends/Leaflet.D3SvgOverlay/L.D3SvgOverlay');
 
 import popupTemplate from './popup.hbs';
 import layers from './layers.json';
+import WindyLayer from './wind/WindyLayer';
 
 export default Marionette.ItemView.extend({
     template: false,
     id: 'map',
+    events: {
+        'change :checkbox': 'radioIt'
+    },
     modelEvents: {
         'update': 'updateView'
     },
 
     onShow() {
         global.map = this;
-        this.map = L.map(this.el);
+        let map = this.map = L.map(this.el);
         this.updateView();
         L.hash(this.map);
 
@@ -48,6 +51,19 @@ export default Marionette.ItemView.extend({
             };
         });
 
+        let stationLayers = _.pluck(this.stationLayers, 'layer');
+        this.windLayer = new WindyLayer({
+            url: 'gfs.json',
+            opacity: 0.50,
+            // Helper to get the station layer so we can
+            // query the visible stations for wind vectors
+            // Should probably be a service instead :/
+            getStation() {
+                return _.find(stationLayers, map.hasLayer, map)
+            }
+        });
+        this.windLayer.addTo(this.map);
+
         //Make menuControl responsible for adding the layers to the map
         this.menuControl = new L.Control.PanelLayers(this.baseLayers, this.stationLayers);
         this.map.addControl( this.menuControl );
@@ -58,5 +74,11 @@ export default Marionette.ItemView.extend({
         if (!location.hash) {
             this.map.setView(this.model.location, this.model.zoom);
         }
+    },
+
+    // Hacky radioizer for the checkboxs
+    radioIt(event) {
+        $(':checkbox', this.menuControl._container).not(event.target)
+            .prop('checked', false);
     }
 });

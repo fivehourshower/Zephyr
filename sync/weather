@@ -1,14 +1,21 @@
 #!/bin/bash
 
 # Build the nasty URL of the day
-URL='http://nomads.ncep.noaa.gov/cgi-bin/filter_gensbc.pl'
+
+URL='http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl'
+FILE='file=gfs.t18z.pgrb2.1p00.f000'
 DATE=`date +%Y%m%d`
+# Round to the nearest 6th hour for the NOMAD api (they generate a new version)
+# Every 6 hours
+HOUR=`date +%k | python -c "print int(float(raw_input()) / 6) * 6"`
 REGION='subregion=&leftlon=0&rightlon=360&toplat=90&bottomlat=-90'
-FILE='file=ge10pt.t00z.pgrb2a_bcf06&lev_10_m_above_ground=on'
-DIR='dir=%2Fgefs.'$DATE'%2F00%2Fpgrb2a_bc'
+SETTINGS='lev_10_m_above_ground=on&var_UGRD=on&var_VGRD=on'
+DIR='dir=%2Fgfs.'$DATE$HOUR
 
 # Fetch it and put it in temp
-curl -o temp/gfs.grib $URL'?'$FILE'&all_var=on&'$REGION'&'$DIR
+ROUTE=$URL'?'$FILE'&'$SETTINGS'&'$REGION'&'$DIR
+echo $ROUTE
+curl -o temp/gfs.grib $ROUTE
 
 # Convert it to an easier to use format (for the web)
 grib2json -d -n -o temp/gfs.json temp/gfs.grib
