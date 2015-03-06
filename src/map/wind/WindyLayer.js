@@ -39,7 +39,7 @@ export default class WindyLayer extends CanvasOverlay {
     render({bounds, size}) {
         this.windy.stop();
 
-        let {width, height} = size;
+        let {x: width, y: height} = size;
         let {lng: xmax, lat: ymax} = bounds.getNorthEast(),
             {lng: xmin, lat: ymin} = bounds.getSouthWest();
         this.windy.start([[0, 0], [width, height]],

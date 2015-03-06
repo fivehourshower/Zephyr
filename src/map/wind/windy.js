@@ -1,13 +1,15 @@
-/*  Global class for simulating the movement of particle through a 1km wind grid
+/*  Class for simulating the movement of particle through a 1km wind grid
+        * TODO needs rewrite (+it's own repo) @megawac
 
     credit: All the credit for this work goes to: https://github.com/cambecc for creating the repo:
-      https://github.com/cambecc/earth. The majority of this code is directly take nfrom there, since its awesome.
+      cambecc/earth and Esri/wind-js. The majority of this code is directly taken from there,
+      since its awesome.
+
 
     This class takes a canvas element and an array of data (1km GFS from http://www.emc.ncep.noaa.gov/index.php?branch=GFS)
     and then uses a mercator (forward/reverse) projection to correctly map wind vectors in "map space".
 
-    The "start" method takes the bounds of the map at its current extent and starts the whole gridding,
-    interpolation and animation process.
+        * TODO (@megawac) overhaul this as it currently doesn't support the current GFS format
 */
 
 import _ from 'lodash';

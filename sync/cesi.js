@@ -1,6 +1,9 @@
 #!/bin/env node
 
 // The next set of cesi updates is April 15!
+// We've been informed that the columns
+// will may change so we're not automatically updating
+// the arcgis feature services automatically (yet)
 
 import request from 'request';
 import csv from 'csv-parser';
