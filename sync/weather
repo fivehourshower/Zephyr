@@ -3,11 +3,12 @@
 # Build the nasty URL of the day
 
 URL='http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl'
-FILE='file=gfs.t06z.pgrb2.1p00.f000'
 DATE=`date +%Y%m%d`
 # Round to the nearest 6th hour for the NOMAD api (they generate a new version)
 # Every 6 hours
 HOUR=`date +%k | python -c "print format(int(float(raw_input()) / 6) * 6, '02')"`
+
+FILE='file=gfs.t'$HOUR'z.pgrb2.1p00.f000'
 REGION='subregion=&leftlon=0&rightlon=360&toplat=90&bottomlat=-90'
 SETTINGS='lev_10_m_above_ground=on&var_UGRD=on&var_VGRD=on'
 DIR='dir=%2Fgfs.'$DATE$HOUR
