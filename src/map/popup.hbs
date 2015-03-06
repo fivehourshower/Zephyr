@@ -1,5 +1,10 @@
 <p>
-  <strong>Facility: {{properties.facility_name}}</strong>
-  <p>{{config.name}}</p>
-  <p>Emissions Types: {{properties.emission}} {{properties.unit}}</p>
+  <strong><h4>{{properties.facility_name}}</h4></strong>
+  <h5>{{config.name}}</h5>
+
+  <ul class="list-unstyled">
+    <strong><li>Emissions Level:</li></strong>
+    <li>{{properties.emission}} {{properties.unit}}</li>
+    <li><a href={{properties.url}} >Link</a></li>
+  </ul>
 </p>
