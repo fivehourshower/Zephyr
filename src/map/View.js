@@ -46,8 +46,8 @@ export default Marionette.ItemView.extend({
                 pointToLayer(geojson, latlng) {
                     return L.marker(latlng, {
                         icon: L.icon({
-                            iconUrl: 'http://cdn.flaticon.com/png/256/46248.png',
-                            iconSize: [24, 24]
+                            iconUrl: 'http://rawgit.com/fivehourshower/Zephyr/master/src/map/pollution-icon.svg',
+                            iconSize: [32, 32]
                         })
                     });
                 }
