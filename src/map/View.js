@@ -1,11 +1,14 @@
 import Marionette from 'backbone.marionette';
 import _ from 'lodash';
+import $ from 'jquery';
 
 import L from 'leaflet';
 import esri from 'esri-leaflet';
 require('leaflet-hash');
 require('leaflet-panel-layers/dist/leaflet-panel-layers.src');
-require('Leaflet.vector-markers/dist/Leaflet.vector-markers');
+require('esri-leaflet-clustered-feature-layer');
+require('leaflet.markercluster');
+require('Leaflet.vector-markers/dist/Leaflet.vector-markers.js');
 
 import popupTemplate from './popup.hbs';
 import layers from './layers.json';
@@ -39,7 +42,9 @@ export default Marionette.ItemView.extend({
         });
 
         this.stationLayers = _.map(layers.stationLayers, (config, index) => {
-            let layer = esri.featureLayer(config.url, {});
+            let layer = L.esri.clusteredFeatureLayer(config.url, {
+
+            });
 
             // Register the popup template
             layer.bindPopup(feature => popupTemplate({config, properties: feature.properties}));
@@ -60,7 +65,7 @@ export default Marionette.ItemView.extend({
             // query the visible stations for wind vectors
             // Should probably be a service instead :/
             getStation() {
-                return _.find(stationLayers, map.hasLayer, map)
+                return _.find(stationLayers, map.hasLayer, map);
             }
         });
         this.windLayer.addTo(this.map);
