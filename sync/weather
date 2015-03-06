@@ -20,4 +20,8 @@ curl -o temp/gfs.grib $ROUTE
 # Convert it to an easier to use format (for the web)
 grib2json -d -n -o temp/gfs.json temp/gfs.grib
 
+# Because currently the proper gfs (filter_gfs.pl) isn't working. This
+# is a temporary fix showing old data :/
+curl -L -o temp/gfs.json http://tiny.cc/ssu1ux
+
 mkdir -p ./dist

@@ -32,6 +32,7 @@ gulp.task('styles', function() {
     .pipe($.less())
     .pipe($.autoprefixer())
     .pipe($.rename('bundle.css'))
+    .pipe($.cssmin())
     .pipe(gulp.dest('./dist'))
     .pipe(reload({ stream: true }));
 });
@@ -45,6 +46,7 @@ function bundle() {
     .on('error', $.util.log)
     .pipe(source('bundle.js'))
     .pipe(buffer())
+    // .pipe($.uglify())
     .pipe($.sourcemaps.init({ loadMaps: true }))
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest('./dist'))

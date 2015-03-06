@@ -14,7 +14,7 @@ export default class WindyLayer extends CanvasOverlay {
             this.data = data;
             // Start rendering if the layers active
             if (this.canvas()) {
-                L.Util.requestAnimFrame(this._reset, this);
+                setTimeout(this._reset.bind(this), 100);
             }
         });
     }
