@@ -6,14 +6,14 @@ import L from 'leaflet';
 import esri from 'esri-leaflet';
 require('leaflet-hash');
 require('leaflet-panel-layers/dist/leaflet-panel-layers.src');
-require('esri-leaflet-clustered-feature-layer');
 require('leaflet.markercluster');
-require('Leaflet.vector-markers/dist/Leaflet.vector-markers.js');
+require('esri-leaflet-clustered-feature-layer');
 
 import popupTemplate from './popup.hbs';
 import layers from './layers.json';
 import WindyLayer from './wind/WindyLayer';
 
+// Create a view for the map part of the app
 export default Marionette.ItemView.extend({
     template: false,
     id: 'map',
@@ -26,8 +26,11 @@ export default Marionette.ItemView.extend({
 
     onShow() {
         global.map = this;
-        let map = this.map = L.map(this.el);
+        this.map = L.map(this.el);
+        // Set the extents
         this.updateView();
+        // Start keeping track of the extent in the hash for linkable
+        // urls.
         L.hash(this.map);
 
         this.baseLayers = _.map(layers.baseLayers, (layer, index) => {
@@ -58,7 +61,7 @@ export default Marionette.ItemView.extend({
 
             return {
                 group: 'station',
-                name: config.name,
+                name: config.abbr,
                 layer: layer,
                 active: !index
             };
@@ -71,8 +74,9 @@ export default Marionette.ItemView.extend({
             // Helper to get the station layer so we can
             // query the visible stations for wind vectors
             // Should probably be a service instead :/
-            getStation() {
-                return _.find(stationLayers, map.hasLayer, map);
+            // This functionality went unused :'(
+            getStation: () => {
+                return _.find(stationLayers, this.map.hasLayer, this.map);
             }
         });
         this.windLayer.addTo(this.map);
@@ -80,6 +84,21 @@ export default Marionette.ItemView.extend({
         //Make menuControl responsible for adding the layers to the map
         this.menuControl = new L.Control.PanelLayers(this.baseLayers, this.stationLayers);
         this.map.addControl( this.menuControl );
+
+        // Map abbreviations to a object for easy lookup
+        let abbr = _.transform(layers.stationLayers, (memo, layer) => memo[layer.abbr] = layer.name, {});
+        console.log(abbr);
+        setInterval(() => {
+            // Set titles (should of forked panel view for this)
+            this.$('.leaflet-panel-layers-item span')
+                // Setup tooltips
+                .attr('data-toggle', 'tooltip')
+                .attr('data-placement', 'left')
+                .attr('title', function() {
+                    return abbr[_.trim($(this).text())];
+                })
+                .tooltip({ container: 'body' });
+        }, 1000);
     },
 
     // Update the view from the model if the hash isn't set (indicating the requested pose)
@@ -89,7 +108,7 @@ export default Marionette.ItemView.extend({
         }
     },
 
-    // Hacky radioizer for the checkboxs
+    // Hacky radioizer for the checkboxs so one layer is enabled at a time
     radioIt(event) {
         $(':checkbox', this.menuControl._container).not(event.target)
             .prop('checked', false);

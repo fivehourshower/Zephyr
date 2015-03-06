@@ -1,5 +1,5 @@
 {
-    "baseLayers": ["DarkGray", "Gray", "Streets", "Topographic", "NationalGeographic", "Oceans", "ImageryLabels"],
+    "baseLayers": ["DarkGray", "Gray", "Streets", "Topographic", "Oceans", "ImageryLabels"],
     "stationLayers": [
         {"name": "Volatile Organic Compounds", "abbr": "VOC",
         "url": "http://services5.arcgis.com/qU80cCGJEmdjMJVt/arcgis/rest/services/Volatile_Organic_Compounds/FeatureServer/0"},

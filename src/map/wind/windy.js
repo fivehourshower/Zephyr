@@ -15,7 +15,6 @@
 import _ from 'lodash';
 import L from 'leaflet';
 
-
 var Windy = function(params) {
     var VELOCITY_SCALE = 0.015; // scale for wind velocity (completely arbitrary--this value looks nice)
     var INTENSITY_SCALE_STEP = 10; // step size of particle intensity color scale
@@ -479,7 +478,7 @@ var Windy = function(params) {
 
     var start = function(bounds, width, height, extent, zoomScale) {
 
-
+        // Scale the particles by zoomScale (our main adaptation to windy)
         e_scale = zoomScale;
         PARTICLE_MULTIPLIER = 1/200;
         PARTICLE_MULTIPLIER *= Math.pow(e_scale, 0.2);
