@@ -5,6 +5,7 @@ import L from 'leaflet';
 import esri from 'esri-leaflet';
 require('leaflet-hash');
 require('leaflet-panel-layers/dist/leaflet-panel-layers.src');
+require('Leaflet.vector-markers/dist/Leaflet.vector-markers');
 
 import popupTemplate from './popup.hbs';
 import layers from './layers.json';
