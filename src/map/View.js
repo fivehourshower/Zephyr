@@ -43,7 +43,14 @@ export default Marionette.ItemView.extend({
 
         this.stationLayers = _.map(layers.stationLayers, (config, index) => {
             let layer = L.esri.clusteredFeatureLayer(config.url, {
-
+                pointToLayer(geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.icon({
+                            iconUrl: 'http://cdn.flaticon.com/png/256/46248.png',
+                            iconSize: [24, 24]
+                        })
+                    });
+                }
             });
 
             // Register the popup template
