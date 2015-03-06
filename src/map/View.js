@@ -34,9 +34,10 @@ export default Marionette.ItemView.extend({
         L.hash(this.map);
 
         this.baseLayers = _.map(layers.baseLayers, (layer, index) => {
+            let name = _.words(layer);
             return {
-                // Put a space between words
-                name: _.words(layer).join(' '),
+                // Put a space between words (disable for mobile due to size constraints).
+                name: L.Browser.mobile ? name[0] : name.join(' '),
                 // Make a feature layer
                 layer: esri.basemapLayer(layer),
                 // Mark the first one active
@@ -87,7 +88,7 @@ export default Marionette.ItemView.extend({
 
         // Map abbreviations to a object for easy lookup
         let abbr = _.transform(layers.stationLayers, (memo, layer) => memo[layer.abbr] = layer.name, {});
-        console.log(abbr);
+        // We use setInterval cause tile layers will change periodically
         setInterval(() => {
             // Set titles (should of forked panel view for this)
             this.$('.leaflet-panel-layers-item span')
