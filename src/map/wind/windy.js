@@ -17,12 +17,12 @@ import L from 'leaflet';
 
 
 var Windy = function(params) {
-    var VELOCITY_SCALE = 0.011; // scale for wind velocity (completely arbitrary--this value looks nice)
+    var VELOCITY_SCALE = 0.015; // scale for wind velocity (completely arbitrary--this value looks nice)
     var INTENSITY_SCALE_STEP = 10; // step size of particle intensity color scale
     var MAX_WIND_INTENSITY = 40; // wind velocity at which particle intensity is maximum (m/s)
-    var MAX_PARTICLE_AGE = 100; // max number of frames a particle is drawn before regeneration
-    var PARTICLE_LINE_WIDTH = 0.8; // line width of a drawn particle
-    var PARTICLE_MULTIPLIER = 1 / 30; // particle count scalar (completely arbitrary--this values looks nice)
+    var MAX_PARTICLE_AGE = 80; // max number of frames a particle is drawn before regeneration
+    var PARTICLE_LINE_WIDTH = 0.9; // line width of a drawn particle
+    var PARTICLE_MULTIPLIER = 1 / 200; // particle count scalar (completely arbitrary--this values looks nice)
     var PARTICLE_REDUCTION = 0.75; // reduce particle count to this much of normal for mobile devices
     var FRAME_RATE = 20; // desired milliseconds per frame
     var BOUNDARY = 0.45;
@@ -32,6 +32,7 @@ var Windy = function(params) {
 
     var τ = 2 * Math.PI;
     var H = Math.pow(10, -5.2);
+    var e_scale;
 
     // interpolation for vectors like wind (u,v,m)
     var bilinearInterpolateVector = function(x, y, g00, g10, g01, g11) {
@@ -477,7 +478,14 @@ var Windy = function(params) {
     }
 
     var start = function(bounds, width, height, extent, zoomScale) {
-        console.log(zoomScale);
+
+
+        e_scale = zoomScale;
+        PARTICLE_MULTIPLIER = 1/200;
+        PARTICLE_MULTIPLIER *= Math.pow(e_scale, 0.2);
+
+        console.log("Escale factor... ",Math.pow(e_scale, 0.044));
+        console.log("Particle test After... ", PARTICLE_MULTIPLIER );
 
         var mapBounds = {
             south: deg2rad(extent[0][1]),
