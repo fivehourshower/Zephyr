@@ -16,7 +16,7 @@ Credits to Cambecc's [Earth Model](https://github.com/cambecc/earth) and ESRI's 
 |---|---|---|
 |![megawac](http://i.imgur.com/Lpax8dO.jpg)|![Jaydeep](http://i.imgur.com/lwLMFfS.jpg)|![Sam](http://i.imgur.com/yKK9UOR.jpg)|
 
-We're a group from University of Waterloo who...
+**Graeme** is a developer passionate about board games and bringing GIS functions to mobile robotics.
 
 ## Setup
 

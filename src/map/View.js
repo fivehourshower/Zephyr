@@ -55,7 +55,6 @@ export default Marionette.ItemView.extend({
 
             // Register the popup template
             layer.bindPopup(feature => popupTemplate({config, properties: feature.properties}));
-            //layer.setStyle();
 
             return {
                 group: 'station',
@@ -76,7 +75,7 @@ export default Marionette.ItemView.extend({
                 return _.find(stationLayers, map.hasLayer, map);
             }
         });
-        //this.windLayer.addTo(this.map);
+        this.windLayer.addTo(this.map);
 
         //Make menuControl responsible for adding the layers to the map
         this.menuControl = new L.Control.PanelLayers(this.baseLayers, this.stationLayers);

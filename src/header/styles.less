@@ -1,3 +1,16 @@
+@nav-height: 36px;
+@nav-offset: 10px;
 .navbar {
     margin: 0;
+    min-height: @nav-height;
+}
+
+.navbar-brand {
+    height: @nav-height;
+    line-height: @nav-offset;
+}
+
+.navbar-nav > li > a {
+    padding-top: @nav-offset !important;
+    padding-bottom:5px !important;
 }
